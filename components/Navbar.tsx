@@ -22,6 +22,28 @@ const languages = [
   { code: "pt", label: "Português", flag: "🇧🇷" },
   { code: "nl", label: "Nederlands", flag: "🇳🇱" },
   { code: "pl", label: "Polski", flag: "🇵🇱" },
+  { code: "ru", label: "Русский", flag: "🇷🇺" },
+  { code: "zh", label: "中文 (简体)", flag: "🇨🇳" },
+  { code: "zh-tw", label: "中文 (繁體)", flag: "🇹🇼" },
+  { code: "ja", label: "日本語", flag: "🇯🇵" },
+  { code: "ko", label: "한국어", flag: "🇰🇷" },
+  { code: "ar", label: "العربية", flag: "🇸🇦" },
+  { code: "hi", label: "हिन्दी", flag: "🇮🇳" },
+  { code: "tr", label: "Türkçe", flag: "🇹🇷" },
+  { code: "sv", label: "Svenska", flag: "🇸🇪" },
+  { code: "no", label: "Norsk", flag: "🇳🇴" },
+  { code: "da", label: "Dansk", flag: "🇩🇰" },
+  { code: "fi", label: "Suomi", flag: "🇫🇮" },
+  { code: "cs", label: "Čeština", flag: "🇨🇿" },
+  { code: "ro", label: "Română", flag: "🇷🇴" },
+  { code: "hu", label: "Magyar", flag: "🇭🇺" },
+  { code: "el", label: "Ελληνικά", flag: "🇬🇷" },
+  { code: "uk", label: "Українська", flag: "🇺🇦" },
+  { code: "he", label: "עברית", flag: "🇮🇱" },
+  { code: "th", label: "ภาษาไทย", flag: "🇹🇭" },
+  { code: "vi", label: "Tiếng Việt", flag: "🇻🇳" },
+  { code: "id", label: "Bahasa Indonesia", flag: "🇮🇩" },
+  { code: "ms", label: "Bahasa Melayu", flag: "🇲🇾" },
 ];
 
 export default function Navbar() {
@@ -87,11 +109,12 @@ export default function Navbar() {
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: -4, scale: 0.97 }}
                   transition={{ duration: 0.15 }}
-                  className="absolute right-0 top-full mt-2 bg-[#1c1c1e] overflow-hidden"
+                  className="absolute right-0 top-full mt-2 bg-[#1c1c1e] overflow-y-auto"
                   style={{
                     borderRadius: 11,
                     border: "1px solid rgba(255,255,255,0.12)",
-                    minWidth: 160,
+                    minWidth: 180,
+                    maxHeight: 320,
                     boxShadow: "0 8px 32px rgba(0,0,0,0.5)",
                   }}
                 >
@@ -149,11 +172,12 @@ export default function Navbar() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -4 }}
                   transition={{ duration: 0.15 }}
-                  className="absolute right-0 top-full mt-2 bg-[#1c1c1e] overflow-hidden"
+                  className="absolute right-0 top-full mt-2 bg-[#1c1c1e] overflow-y-auto"
                   style={{
                     borderRadius: 11,
                     border: "1px solid rgba(255,255,255,0.12)",
-                    minWidth: 160,
+                    minWidth: 180,
+                    maxHeight: 320,
                     boxShadow: "0 8px 32px rgba(0,0,0,0.5)",
                     zIndex: 100,
                   }}
