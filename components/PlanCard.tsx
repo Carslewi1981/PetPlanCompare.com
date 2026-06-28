@@ -6,6 +6,8 @@ import { Check, X, ChevronDown, ChevronUp, Phone, Globe } from "lucide-react";
 import { Insurer, ANIMAL_TYPES } from "@/lib/insurers";
 import { useStore } from "@/lib/store";
 import { getPriceMultiplier } from "@/lib/priceMultiplier";
+import { getBreedById } from "@/lib/breeds";
+import { scoreInsurerForBreed, getGradeColor } from "@/lib/healthRisk";
 import StarRating from "./StarRating";
 
 interface PlanCardProps {
@@ -27,6 +29,9 @@ export default function PlanCard({ insurer, animal, index = 0 }: PlanCardProps) 
   const multiplier = getPriceMultiplier(petProfile, animal);
   const price = Math.round(basePrice * multiplier);
   const priceAdjusted = multiplier !== 1.0;
+
+  const selectedBreed = petProfile.breedId ? getBreedById(petProfile.breedId) : null;
+  const breedMatch = selectedBreed ? scoreInsurerForBreed(insurer, selectedBreed) : null;
 
   const animalLabel =
     animal === "all" ? t.card_from : ANIMAL_TYPES.find((a) => a.id === animal)?.label || "";
@@ -129,6 +134,41 @@ export default function PlanCard({ insurer, animal, index = 0 }: PlanCardProps) 
           <span className="text-[12px] text-[#7a7a7a]">{t.card_app} ⭐ {insurer.appRating}</span>
         </div>
 
+        {/* Breed match badge */}
+        {breedMatch && (
+          <div
+            className="flex items-center justify-between px-3 py-2 mb-4"
+            style={{
+              background: `${getGradeColor(breedMatch.grade)}12`,
+              border: `1px solid ${getGradeColor(breedMatch.grade)}30`,
+              borderRadius: 9,
+            }}
+          >
+            <div>
+              <span className="font-semibold" style={{ fontSize: 11, color: getGradeColor(breedMatch.grade) }}>
+                Breed Match
+              </span>
+              <span className="text-[#7a7a7a] ml-1" style={{ fontSize: 11 }}>
+                {selectedBreed?.name}
+              </span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <span
+                className="font-semibold w-6 h-6 flex items-center justify-center"
+                style={{
+                  fontSize: 13,
+                  color: "#fff",
+                  background: getGradeColor(breedMatch.grade),
+                  borderRadius: 6,
+                }}
+              >
+                {breedMatch.grade}
+              </span>
+              <span className="text-[#7a7a7a]" style={{ fontSize: 11 }}>{breedMatch.score}/100</span>
+            </div>
+          </div>
+        )}
+
         <div className="flex flex-wrap gap-1.5 mb-4">
           {insurer.animals.map((a) => {
             const at = ANIMAL_TYPES.find((x) => x.id === a);
@@ -189,6 +229,28 @@ export default function PlanCard({ insurer, animal, index = 0 }: PlanCardProps) 
               <span>⏱</span>
               {t.card_waitingPeriod} {insurer.waitingPeriod}
             </div>
+
+            {/* Breed-specific insights */}
+            {breedMatch && breedMatch.highlights.length > 0 && (
+              <div className="space-y-1">
+                {breedMatch.highlights.map((h) => (
+                  <div key={h} className="flex items-start gap-2 px-3 py-1.5 bg-[#f0fdf4]" style={{ borderRadius: 7 }}>
+                    <Check className="w-3 h-3 text-green-600 flex-shrink-0 mt-0.5" />
+                    <span className="text-green-800" style={{ fontSize: 11 }}>{h}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+            {breedMatch && breedMatch.warnings.length > 0 && (
+              <div className="space-y-1">
+                {breedMatch.warnings.map((w) => (
+                  <div key={w} className="flex items-start gap-2 px-3 py-1.5 bg-[#fffbeb]" style={{ borderRadius: 7 }}>
+                    <span className="text-[#d97706] flex-shrink-0 mt-0.5" style={{ fontSize: 10 }}>⚠</span>
+                    <span className="text-[#92400e]" style={{ fontSize: 11 }}>{w}</span>
+                  </div>
+                ))}
+              </div>
+            )}
           </motion.div>
         )}
 

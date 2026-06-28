@@ -5,13 +5,16 @@ import { motion, AnimatePresence } from "framer-motion";
 import { SlidersHorizontal, X } from "lucide-react";
 import { useStore } from "@/lib/store";
 import { insurers, ANIMAL_TYPES } from "@/lib/insurers";
+import { getBreedById } from "@/lib/breeds";
+import { scoreInsurerForBreed } from "@/lib/healthRisk";
 import FilterSidebar from "@/components/FilterSidebar";
 import PlanCard from "@/components/PlanCard";
 
 function filterAndSort(
   list: typeof insurers,
   animal: string,
-  filters: ReturnType<typeof useStore>["filters"]
+  filters: ReturnType<typeof useStore>["filters"],
+  breedId?: string,
 ) {
   let result = list.filter((ins) => {
     if (animal !== "all" && !ins.animals.includes(animal)) return false;
@@ -63,6 +66,14 @@ function filterAndSort(
         ? Math.min(...Object.values(b.monthlyPrice).filter((p) => p > 0))
         : b.monthlyPrice[animal] || 0;
 
+    if (filters.sortBy === "breedMatch" && breedId) {
+      const breed = getBreedById(breedId);
+      if (breed) {
+        const scoreA = scoreInsurerForBreed(a, breed).score;
+        const scoreB = scoreInsurerForBreed(b, breed).score;
+        return scoreB - scoreA;
+      }
+    }
     switch (filters.sortBy) {
       case "price":
         return priceA - priceB;
@@ -80,7 +91,7 @@ function filterAndSort(
 
 export default function ComparePage() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const { selectedAnimal, filters } = useStore();
+  const { selectedAnimal, filters, petProfile } = useStore();
 
   const animalLabel =
     selectedAnimal === "all"
@@ -88,8 +99,8 @@ export default function ComparePage() {
       : ANIMAL_TYPES.find((a) => a.id === selectedAnimal)?.label + "s" || "";
 
   const filtered = useMemo(
-    () => filterAndSort(insurers, selectedAnimal, filters),
-    [selectedAnimal, filters]
+    () => filterAndSort(insurers, selectedAnimal, filters, petProfile.breedId),
+    [selectedAnimal, filters, petProfile.breedId]
   );
 
   return (

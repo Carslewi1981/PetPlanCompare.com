@@ -15,8 +15,9 @@ export interface Filters {
 }
 
 export interface PetProfile {
-  age: string;   // "puppy" | "young" | "adult" | "senior" | "senior+"
-  breed: string; // size category key
+  age: string;      // "puppy" | "young" | "adult" | "senior" | "senior+"
+  breed: string;    // size category key (for price multiplier)
+  breedId: string;  // specific breed id from breeds.ts ("" = none selected)
   location: string; // US state abbreviation
 }
 
@@ -57,7 +58,7 @@ const StoreContext = createContext<StoreState | null>(null);
 export function StoreProvider({ children }: { children: ReactNode }) {
   const [lang, setLang] = useState<LangCode>("en");
   const t = translations[lang];
-  const [petProfile, setPetProfile] = useState<PetProfile>({ age: "adult", breed: "any", location: "" });
+  const [petProfile, setPetProfile] = useState<PetProfile>({ age: "adult", breed: "any", breedId: "", location: "" });
   const updatePetProfile = <K extends keyof PetProfile>(key: K, value: PetProfile[K]) =>
     setPetProfile((prev) => ({ ...prev, [key]: value }));
   const [selectedAnimal, setSelectedAnimal] = useState("all");

@@ -1,9 +1,12 @@
 "use client";
 
+import { useState } from "react";
 import { useStore } from "@/lib/store";
 import AnimalSelector from "./AnimalSelector";
+import BreedRiskCard from "./BreedRiskCard";
 import { Search, RotateCcw } from "lucide-react";
 import { US_STATES, STATE_NAMES } from "@/lib/priceMultiplier";
+import { getBreedsByAnimal } from "@/lib/breeds";
 
 const reimbursementOptions = [
   { value: "any", label: "Any" },
@@ -39,6 +42,7 @@ const sortOptions = [
   { value: "price", label: "Lowest Price" },
   { value: "reviews", label: "Most Reviews" },
   { value: "claims", label: "Fastest Claims" },
+  { value: "breedMatch", label: "Best Breed Match" },
 ];
 
 const ageOptions = [
@@ -88,6 +92,85 @@ function Select({
   );
 }
 
+function BreedSearch({ animal, value, onChange }: {
+  animal: "dog" | "cat";
+  value: string;
+  onChange: (id: string) => void;
+}) {
+  const [query, setQuery] = useState("");
+  const breeds = getBreedsByAnimal(animal);
+  const filtered = query.length > 0
+    ? breeds.filter((b) => b.name.toLowerCase().includes(query.toLowerCase()))
+    : breeds;
+  const selected = breeds.find((b) => b.id === value);
+
+  return (
+    <div className="space-y-1.5">
+      <div className="relative">
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-[#d2d2d7]" />
+        <input
+          type="text"
+          placeholder={`Search ${animal} breeds...`}
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          className="w-full bg-white border border-[#e0e0e0] text-[#1d1d1f] pl-8 pr-3 py-2 focus:outline-none focus:border-[#0066cc] placeholder-[#d2d2d7]"
+          style={{ fontSize: 13, letterSpacing: "-0.12px", borderRadius: 8 }}
+        />
+      </div>
+
+      {/* Current selection */}
+      {selected && (
+        <div
+          className="flex items-center justify-between px-3 py-1.5"
+          style={{ background: "#eff6ff", borderRadius: 7 }}
+        >
+          <span className="text-[#0066cc] font-semibold" style={{ fontSize: 12 }}>{selected.name}</span>
+          <button
+            onClick={() => { onChange(""); setQuery(""); }}
+            className="text-[#7a7a7a] hover:text-[#1d1d1f]"
+            style={{ fontSize: 11 }}
+          >
+            ✕
+          </button>
+        </div>
+      )}
+
+      {/* Dropdown list */}
+      {query.length > 0 && (
+        <div
+          className="bg-white border border-[#e0e0e0] overflow-y-auto"
+          style={{ borderRadius: 8, maxHeight: 180 }}
+        >
+          {filtered.length === 0 ? (
+            <div className="px-3 py-2 text-[#7a7a7a]" style={{ fontSize: 12 }}>No breeds found</div>
+          ) : (
+            filtered.map((b) => (
+              <button
+                key={b.id}
+                onClick={() => { onChange(b.id); setQuery(""); }}
+                className="w-full text-left px-3 py-2 hover:bg-[#f5f5f7] transition-colors flex items-center justify-between"
+                style={{ fontSize: 13 }}
+              >
+                <span>{b.name}</span>
+                <span
+                  className="text-[10px] px-1.5 py-0.5 font-semibold"
+                  style={{
+                    borderRadius: 9999,
+                    color: b.riskLevel === "low" ? "#16a34a" : b.riskLevel === "moderate" ? "#d97706" : b.riskLevel === "high" ? "#dc2626" : "#7c3aed",
+                    background: b.riskLevel === "low" ? "#f0fdf4" : b.riskLevel === "moderate" ? "#fffbeb" : b.riskLevel === "high" ? "#fef2f2" : "#f5f3ff",
+                  }}
+                >
+                  {b.riskLevel}
+                </span>
+              </button>
+            ))
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function FilterSidebar() {
   const {
     filters, updateFilter, resetFilters,
@@ -99,6 +182,8 @@ export default function FilterSidebar() {
   const breedOptions =
     selectedAnimal === "dog" ? dogBreedOptions :
     selectedAnimal === "cat" ? catBreedOptions : null;
+
+  const showBreedSearch = selectedAnimal === "dog" || selectedAnimal === "cat";
 
   return (
     <div className="flex flex-col gap-5">
@@ -122,11 +207,31 @@ export default function FilterSidebar() {
           />
         </div>
 
-        {/* Breed — only for dog/cat */}
+        {/* Specific breed search */}
+        {showBreedSearch && (
+          <div className="space-y-1">
+            <label className="text-[#7a7a7a]" style={{ fontSize: 12, letterSpacing: "-0.12px" }}>
+              Specific Breed
+              <span
+                className="ml-1.5 text-[#0066cc] font-semibold"
+                style={{ fontSize: 10, letterSpacing: 0 }}
+              >
+                NEW — Health Risk Analysis
+              </span>
+            </label>
+            <BreedSearch
+              animal={selectedAnimal as "dog" | "cat"}
+              value={petProfile.breedId}
+              onChange={(id) => updatePetProfile("breedId", id)}
+            />
+          </div>
+        )}
+
+        {/* Size/breed category for price multiplier */}
         {breedOptions && (
           <div className="space-y-1">
             <label className="text-[#7a7a7a]" style={{ fontSize: 12, letterSpacing: "-0.12px" }}>
-              {selectedAnimal === "dog" ? "Size / Breed" : "Breed Type"}
+              {selectedAnimal === "dog" ? "Size Category" : "Breed Type"}
             </label>
             <Select
               value={petProfile.breed}
@@ -157,6 +262,11 @@ export default function FilterSidebar() {
           <p className="text-[#0066cc]" style={{ fontSize: 11, letterSpacing: "-0.12px" }}>
             ✦ Prices adjusted for your pet profile
           </p>
+        )}
+
+        {/* Breed risk card */}
+        {petProfile.breedId && (
+          <BreedRiskCard breedId={petProfile.breedId} />
         )}
       </div>
 
