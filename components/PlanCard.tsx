@@ -36,74 +36,82 @@ export default function PlanCard({ insurer, animal, index = 0 }: PlanCardProps) 
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.05, duration: 0.3 }}
-      className={`relative bg-[#0D1B3E] border transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-black/40 ${
-        isSelected
-          ? "border-brand-red shadow-lg shadow-brand-red/20"
-          : "border-white/10 hover:border-white/20"
-      }`}
+      className="relative bg-white transition-all duration-200 hover:shadow-[0_4px_20px_rgba(0,0,0,0.10)]"
+      style={{
+        borderRadius: 18,
+        border: isSelected ? "2px solid #0071e3" : "1px solid #e0e0e0",
+      }}
     >
-      {/* Selected indicator */}
-      {isSelected && (
-        <div className="absolute top-0 left-0 right-0 h-0.5 bg-brand-red" />
-      )}
-
       {/* Checkbox */}
       <div className="absolute top-4 right-4">
         <button
           onClick={() => toggleCompare(insurer.id)}
-          className={`w-5 h-5 border-2 flex items-center justify-center transition-colors ${
-            isSelected
-              ? "bg-brand-red border-brand-red"
-              : "border-gray-600 hover:border-gray-400"
-          }`}
+          className="w-5 h-5 rounded-full border-2 flex items-center justify-center transition-colors active:scale-95"
+          style={{
+            backgroundColor: isSelected ? "#0066cc" : "transparent",
+            borderColor: isSelected ? "#0066cc" : "#d2d2d7",
+          }}
           title={isSelected ? "Remove from comparison" : "Add to comparison"}
         >
           {isSelected && <Check className="w-3 h-3 text-white" />}
         </button>
       </div>
 
-      <div className="p-5">
+      <div className="p-6">
         {/* Header */}
-        <div className="flex items-start gap-3 mb-4 pr-8">
+        <div className="flex items-start gap-3 mb-5 pr-8">
           <div
             className="w-12 h-12 flex items-center justify-center text-2xl flex-shrink-0"
-            style={{ backgroundColor: insurer.color + "20", border: `1px solid ${insurer.color}40` }}
+            style={{ backgroundColor: insurer.color + "15", borderRadius: 8 }}
           >
             {insurer.logo}
           </div>
           <div>
             <h3
-              className="font-bebas text-xl tracking-wide leading-tight"
-              style={{ color: insurer.color }}
+              className="font-semibold leading-tight"
+              style={{ fontSize: 17, letterSpacing: "-0.374px", color: insurer.color }}
             >
               {insurer.name}
             </h3>
-            <p className="text-gray-500 text-xs italic leading-tight mt-0.5">{insurer.tagline}</p>
+            <p className="text-[#7a7a7a] text-[14px] leading-tight mt-0.5" style={{ letterSpacing: "-0.224px" }}>
+              {insurer.tagline}
+            </p>
           </div>
         </div>
 
         {/* Price */}
-        <div className="mb-4">
+        <div className="mb-5">
           <div className="flex items-baseline gap-1">
-            <span className="font-bebas text-4xl text-white">${price}</span>
-            <span className="text-gray-400 text-sm">/mo</span>
+            <span className="font-semibold text-[#1d1d1f]" style={{ fontSize: 34, letterSpacing: "-0.374px" }}>
+              ${price}
+            </span>
+            <span className="text-[#7a7a7a] text-[17px]">/mo</span>
           </div>
-          <div className="text-gray-500 text-xs uppercase tracking-wider">
+          <div className="text-[#7a7a7a] text-[14px]" style={{ letterSpacing: "-0.224px" }}>
             {animal === "all" ? "starting from" : `for ${animalLabel}s`}
           </div>
         </div>
 
         {/* Stats row */}
-        <div className="grid grid-cols-4 gap-1 mb-4 border border-white/5 bg-black/20">
+        <div
+          className="grid grid-cols-4 gap-0 mb-5 bg-[#f5f5f7]"
+          style={{ borderRadius: 11, overflow: "hidden" }}
+        >
           {[
             { label: "Reimburse", value: insurer.reimbursement },
             { label: "Annual Max", value: insurer.maxAnnual },
             { label: "Deductible", value: insurer.deductible },
             { label: "Claims", value: insurer.claimsTime },
-          ].map((stat) => (
-            <div key={stat.label} className="flex flex-col items-center py-2 px-1 border-r border-white/5 last:border-r-0">
-              <span className="text-white text-xs font-bold leading-tight text-center">{stat.value}</span>
-              <span className="text-gray-600 text-[10px] uppercase tracking-wider mt-0.5 text-center">{stat.label}</span>
+          ].map((stat, i) => (
+            <div
+              key={stat.label}
+              className="flex flex-col items-center py-3 px-1"
+              style={{ borderRight: i < 3 ? "1px solid #e0e0e0" : "none" }}
+            >
+              <span className="text-[#1d1d1f] text-[12px] font-semibold leading-tight text-center">
+                {stat.value}
+              </span>
+              <span className="text-[#7a7a7a] text-[10px] mt-0.5 text-center">{stat.label}</span>
             </div>
           ))}
         </div>
@@ -111,7 +119,7 @@ export default function PlanCard({ insurer, animal, index = 0 }: PlanCardProps) 
         {/* Rating */}
         <div className="flex items-center justify-between mb-4">
           <StarRating rating={insurer.rating} reviews={insurer.reviews} size="sm" />
-          <span className="text-xs text-gray-500">App: ⭐ {insurer.appRating}</span>
+          <span className="text-[12px] text-[#7a7a7a]">App: ⭐ {insurer.appRating}</span>
         </div>
 
         {/* Animal tags */}
@@ -121,7 +129,8 @@ export default function PlanCard({ insurer, animal, index = 0 }: PlanCardProps) 
             return (
               <span
                 key={a}
-                className="flex items-center gap-1 bg-white/5 border border-white/10 text-gray-400 text-xs px-2 py-0.5"
+                className="flex items-center gap-1 text-[#333333] text-[12px] px-3 py-1"
+                style={{ background: "#f5f5f7", borderRadius: 9999 }}
               >
                 <span className="text-xs">{at?.icon}</span>
                 <span>{at?.label}</span>
@@ -133,7 +142,8 @@ export default function PlanCard({ insurer, animal, index = 0 }: PlanCardProps) 
         {/* Expand toggle */}
         <button
           onClick={() => setExpanded(!expanded)}
-          className="flex items-center gap-1 text-xs text-brand-blue font-semibold hover:text-blue-400 transition-colors mb-4"
+          className="flex items-center gap-1 text-[14px] text-[#0066cc] mb-4 hover:text-[#0071e3] transition-colors"
+          style={{ letterSpacing: "-0.224px" }}
         >
           {expanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
           {expanded ? "Hide Features" : "Show Features"}
@@ -144,33 +154,35 @@ export default function PlanCard({ insurer, animal, index = 0 }: PlanCardProps) 
           <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
             className="mb-4 space-y-4"
           >
             <div>
-              <h4 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Covered</h4>
+              <h4 className="text-[12px] font-semibold text-[#7a7a7a] mb-2">Covered</h4>
               <ul className="space-y-1">
                 {insurer.features.map((f) => (
-                  <li key={f} className="flex items-start gap-2 text-xs text-gray-300">
-                    <Check className="w-3.5 h-3.5 text-green-400 flex-shrink-0 mt-0.5" />
+                  <li key={f} className="flex items-start gap-2 text-[14px] text-[#1d1d1f]" style={{ letterSpacing: "-0.224px" }}>
+                    <Check className="w-3.5 h-3.5 text-green-600 flex-shrink-0 mt-0.5" />
                     {f}
                   </li>
                 ))}
               </ul>
             </div>
             <div>
-              <h4 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Not Covered</h4>
+              <h4 className="text-[12px] font-semibold text-[#7a7a7a] mb-2">Not Covered</h4>
               <ul className="space-y-1">
                 {insurer.notCovered.map((f) => (
-                  <li key={f} className="flex items-start gap-2 text-xs text-gray-500">
-                    <X className="w-3.5 h-3.5 text-brand-red flex-shrink-0 mt-0.5" />
+                  <li key={f} className="flex items-start gap-2 text-[14px] text-[#7a7a7a]" style={{ letterSpacing: "-0.224px" }}>
+                    <X className="w-3.5 h-3.5 text-red-500 flex-shrink-0 mt-0.5" />
                     {f}
                   </li>
                 ))}
               </ul>
             </div>
-            <div className="flex items-center gap-2 text-xs text-gray-500 bg-white/5 px-3 py-2 border border-white/5">
-              <span className="text-yellow-500">⏱</span>
+            <div
+              className="flex items-center gap-2 text-[12px] text-[#7a7a7a] px-3 py-2 bg-[#f5f5f7]"
+              style={{ borderRadius: 8 }}
+            >
+              <span>⏱</span>
               Waiting period: {insurer.waitingPeriod}
             </div>
           </motion.div>
@@ -180,7 +192,8 @@ export default function PlanCard({ insurer, animal, index = 0 }: PlanCardProps) 
         <div className="flex gap-2">
           <button
             onClick={handleContact}
-            className="flex-1 flex items-center justify-center gap-1.5 border border-white/20 text-gray-300 text-xs font-semibold py-2.5 hover:border-white/40 hover:text-white transition-colors uppercase tracking-widest"
+            className="flex-1 flex items-center justify-center gap-1.5 text-[#0066cc] text-[14px] py-2.5 hover:text-[#0071e3] transition-colors active:scale-95"
+            style={{ border: "1px solid #0066cc", borderRadius: 9999, letterSpacing: "-0.224px" }}
           >
             <Phone className="w-3 h-3" />
             Contact
@@ -189,10 +202,11 @@ export default function PlanCard({ insurer, animal, index = 0 }: PlanCardProps) 
             href={insurer.contact.website}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex-1 flex items-center justify-center gap-1.5 bg-brand-navy border border-brand-blue/50 text-white text-xs font-semibold py-2.5 hover:bg-brand-blue transition-colors uppercase tracking-widest"
+            className="flex-1 flex items-center justify-center gap-1.5 bg-[#0066cc] text-white text-[14px] py-2.5 hover:bg-[#0071e3] transition-colors active:scale-95"
+            style={{ borderRadius: 9999, letterSpacing: "-0.224px" }}
           >
             <Globe className="w-3 h-3" />
-            Get a Quote →
+            Get a Quote
           </a>
         </div>
       </div>

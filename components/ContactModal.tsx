@@ -31,41 +31,36 @@ export default function ContactModal() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4"
+          className="fixed inset-0 z-50 bg-black/40 flex items-center justify-center p-4"
           onClick={(e) => e.target === e.currentTarget && setActiveModal(null)}
         >
           <motion.div
-            initial={{ opacity: 0, y: 20, scale: 0.97 }}
+            initial={{ opacity: 0, y: 16, scale: 0.97 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 20, scale: 0.97 }}
-            className="bg-[#0D1B3E] border border-white/10 w-full max-w-md overflow-hidden"
+            exit={{ opacity: 0, y: 16, scale: 0.97 }}
+            className="bg-white w-full max-w-md overflow-hidden"
+            style={{ borderRadius: 18, border: "1px solid #e0e0e0" }}
           >
-            {/* Accent top border */}
+            {/* Accent top */}
             <div className="h-1 w-full" style={{ backgroundColor: contactInsurer.color }} />
 
             {/* Header */}
-            <div className="flex items-center justify-between p-6 border-b border-white/10">
+            <div className="flex items-center justify-between p-6" style={{ borderBottom: "1px solid #f0f0f0" }}>
               <div className="flex items-center gap-3">
                 <div
                   className="w-12 h-12 flex items-center justify-center text-2xl"
-                  style={{ backgroundColor: contactInsurer.color + "20", border: `1px solid ${contactInsurer.color}40` }}
+                  style={{ backgroundColor: contactInsurer.color + "15", borderRadius: 8 }}
                 >
                   {contactInsurer.logo}
                 </div>
                 <div>
-                  <h2
-                    className="font-bebas text-xl tracking-wide"
-                    style={{ color: contactInsurer.color }}
-                  >
+                  <h2 className="font-semibold" style={{ fontSize: 17, letterSpacing: "-0.374px", color: contactInsurer.color }}>
                     {contactInsurer.name}
                   </h2>
-                  <p className="text-gray-500 text-xs">{contactInsurer.tagline}</p>
+                  <p className="text-[#7a7a7a]" style={{ fontSize: 12, letterSpacing: "-0.12px" }}>{contactInsurer.tagline}</p>
                 </div>
               </div>
-              <button
-                onClick={() => setActiveModal(null)}
-                className="p-2 text-gray-500 hover:text-white transition-colors"
-              >
+              <button onClick={() => setActiveModal(null)} className="p-2 text-[#7a7a7a] hover:text-[#1d1d1f] transition-colors">
                 <X className="w-5 h-5" />
               </button>
             </div>
@@ -75,23 +70,28 @@ export default function ContactModal() {
               {contacts.map(({ key, icon: Icon, label, value }) => (
                 <div
                   key={key}
-                  className="flex items-center gap-3 bg-black/20 border border-white/5 p-3"
+                  className="flex items-center gap-3 p-3"
+                  style={{ background: "#f5f5f7", borderRadius: 11 }}
                 >
-                  <div className="w-8 h-8 flex items-center justify-center bg-brand-navy">
-                    <Icon className="w-4 h-4 text-brand-blue" />
+                  <div
+                    className="w-8 h-8 flex items-center justify-center"
+                    style={{ background: "#e8f0fb", borderRadius: 8 }}
+                  >
+                    <Icon className="w-4 h-4 text-[#0066cc]" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <div className="text-xs text-gray-500 uppercase tracking-widest">{label}</div>
-                    <div className="text-sm text-white truncate">{value}</div>
+                    <div className="text-[#7a7a7a]" style={{ fontSize: 12, letterSpacing: "-0.12px" }}>{label}</div>
+                    <div className="text-[#1d1d1f] truncate" style={{ fontSize: 14, letterSpacing: "-0.224px" }}>{value}</div>
                   </div>
                   <button
                     onClick={() => copyToClipboard(value, key)}
-                    className="flex items-center gap-1 text-xs text-gray-400 hover:text-white border border-white/10 px-2 py-1 transition-colors"
+                    className="flex items-center gap-1 text-[#0066cc] hover:text-[#0071e3] transition-colors px-3 py-1.5 active:scale-95"
+                    style={{ border: "1px solid #0066cc", borderRadius: 9999, fontSize: 12 }}
                   >
                     {copied === key ? (
                       <>
-                        <Check className="w-3 h-3 text-green-400" />
-                        <span className="text-green-400">Copied!</span>
+                        <Check className="w-3 h-3 text-green-600" />
+                        <span className="text-green-600">Copied!</span>
                       </>
                     ) : (
                       <>
@@ -109,13 +109,16 @@ export default function ContactModal() {
                   href={contactInsurer.contact.website}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 py-3 text-sm font-bold uppercase tracking-widest text-white transition-colors"
-                  style={{ backgroundColor: contactInsurer.color }}
+                  className="flex items-center justify-center gap-2 py-3 text-white transition-colors active:scale-95"
+                  style={{ backgroundColor: "#0066cc", borderRadius: 9999, fontSize: 17, letterSpacing: "-0.374px" }}
                 >
                   <ExternalLink className="w-4 h-4" />
-                  Visit Website →
+                  Visit Website
                 </a>
-                <button className="flex items-center justify-center gap-2 py-3 text-sm font-bold uppercase tracking-widest text-gray-300 border border-white/20 hover:border-white/40 hover:text-white transition-colors">
+                <button
+                  className="flex items-center justify-center gap-2 py-3 text-[#0066cc] hover:text-[#0071e3] transition-colors active:scale-95"
+                  style={{ border: "1px solid #0066cc", borderRadius: 9999, fontSize: 17, letterSpacing: "-0.374px" }}
+                >
                   Request a Callback
                 </button>
               </div>

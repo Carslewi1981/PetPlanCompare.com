@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 
 const stats = [
-  "6+ Providers",
+  "8+ Providers",
   "7 Animal Types",
   "Side-by-Side Comparison",
   "Free to Use",
@@ -16,16 +16,16 @@ export default function StatBar() {
   const doubled = [...stats, ...stats];
 
   return (
-    <div className="bg-brand-navy border-y border-brand-blue/30 overflow-hidden py-3">
+    <div className="bg-[#000000] overflow-hidden py-3">
       <motion.div
         className="flex gap-12 whitespace-nowrap"
         animate={{ x: ["0%", "-50%"] }}
         transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
       >
         {doubled.map((stat, i) => (
-          <span key={i} className="flex items-center gap-3 text-sm font-semibold tracking-widest uppercase">
-            <span className="w-2 h-2 rounded-full bg-brand-red flex-shrink-0" />
-            <span className="text-white">{stat}</span>
+          <span key={i} className="flex items-center gap-3">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#0066cc] flex-shrink-0" />
+            <span className="text-[12px] tracking-[-0.12px] text-[#a1a1a6]">{stat}</span>
           </span>
         ))}
       </motion.div>

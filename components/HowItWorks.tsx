@@ -21,35 +21,42 @@ const steps = [
 
 export default function HowItWorks() {
   return (
-    <section id="how-it-works" className="bg-[#0A0A0A] py-24">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="how-it-works" className="bg-[#f5f5f7]" style={{ padding: "80px 0" }}>
+      <div className="max-w-[980px] mx-auto px-4 sm:px-6">
         <div className="text-center mb-16">
-          <h2 className="font-bebas text-5xl tracking-widest text-white mb-3">
-            HOW IT <span className="text-brand-red">WORKS</span>
+          <h2
+            className="font-semibold text-[#1d1d1f] mb-3"
+            style={{ fontSize: 40, lineHeight: 1.1, letterSpacing: 0 }}
+          >
+            How It Works
           </h2>
-          <p className="text-gray-400 text-lg max-w-xl mx-auto">
+          <p className="text-[#7a7a7a] text-[21px] font-light max-w-xl mx-auto" style={{ letterSpacing: 0 }}>
             Finding the right pet insurance takes less than 2 minutes.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-0">
-          {steps.map((step, i) => (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {steps.map((step) => (
             <div
               key={step.number}
-              className="relative flex flex-col p-8 border border-white/10 bg-[#0D1B3E] hover:border-brand-blue/30 transition-colors group"
+              className="bg-white border border-[#e0e0e0] p-6"
+              style={{ borderRadius: 18 }}
             >
-              {/* Connector line */}
-              {i < steps.length - 1 && (
-                <div className="hidden md:block absolute right-0 top-1/2 -translate-y-1/2 w-px h-1/2 bg-white/10" />
-              )}
-
-              <div className="font-bebas text-7xl text-brand-red/20 leading-none mb-4 group-hover:text-brand-red/40 transition-colors">
+              <div
+                className="font-semibold text-[#0066cc] mb-4"
+                style={{ fontSize: 34, lineHeight: 1.47, letterSpacing: "-0.374px" }}
+              >
                 {step.number}
               </div>
-              <h3 className="font-bebas text-2xl tracking-widest text-white mb-3">
+              <h3
+                className="font-semibold text-[#1d1d1f] mb-2"
+                style={{ fontSize: 21, lineHeight: 1.19, letterSpacing: "0.231px" }}
+              >
                 {step.title}
               </h3>
-              <p className="text-gray-400 text-sm leading-relaxed">{step.description}</p>
+              <p className="text-[#7a7a7a]" style={{ fontSize: 17, lineHeight: 1.47, letterSpacing: "-0.374px" }}>
+                {step.description}
+              </p>
             </div>
           ))}
         </div>

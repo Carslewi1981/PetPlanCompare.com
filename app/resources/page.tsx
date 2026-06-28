@@ -12,44 +12,57 @@ const animalIcons: Record<string, string> = {
 
 export default function ResourcesPage() {
   return (
-    <div className="min-h-screen bg-[#0A0A0A] pt-16">
-      {/* Hero */}
-      <div className="bg-[#1E3A8A] border-b border-white/10 py-20">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="font-bebas text-6xl tracking-widest text-white mb-4">
-            PET INSURANCE <span className="text-brand-red">RESOURCES</span>
+    <div className="min-h-screen bg-white" style={{ paddingTop: 44 }}>
+      {/* Hero — dark tile */}
+      <div className="bg-[#272729]" style={{ padding: "80px 0" }}>
+        <div className="max-w-[600px] mx-auto px-4 sm:px-6 text-center">
+          <h1
+            className="font-bebas text-white leading-none mb-4"
+            style={{ fontSize: "clamp(40px, 7vw, 64px)", letterSpacing: "0.02em" }}
+          >
+            Pet Insurance <span style={{ color: "#2997ff" }}>Resources</span>
           </h1>
-          <p className="text-blue-200 text-lg max-w-2xl mx-auto">
+          <p className="text-[#cccccc]" style={{ fontSize: 21, lineHeight: 1.19, letterSpacing: "0.231px" }}>
             Everything you need to know about pet insurance — from deductibles to exotic pet coverage.
           </p>
         </div>
       </div>
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {/* Articles — white tile */}
+      <div className="max-w-[980px] mx-auto px-4 sm:px-6" style={{ padding: "80px 24px" }}>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           {articles.map((article) => (
             <Link
               key={article.slug}
               href={`/resources/${article.slug}`}
-              className="group bg-[#0D1B3E] border border-white/10 p-6 hover:border-brand-blue/50 transition-all hover:-translate-y-0.5 hover:shadow-xl hover:shadow-black/40"
+              className="group bg-white border border-[#e0e0e0] p-6 hover:shadow-[0_4px_20px_rgba(0,0,0,0.10)] transition-all"
+              style={{ borderRadius: 18 }}
             >
               <div className="flex items-start justify-between mb-4">
-                <div className="flex items-center gap-2 bg-black/30 border border-white/10 px-3 py-1">
+                <div
+                  className="flex items-center gap-2 px-3 py-1"
+                  style={{ background: "#f5f5f7", borderRadius: 9999 }}
+                >
                   <span>{animalIcons[article.animal] || "🐾"}</span>
-                  <span className="text-xs text-gray-400 uppercase tracking-widest">
+                  <span className="text-[#7a7a7a]" style={{ fontSize: 12, letterSpacing: "-0.12px" }}>
                     {ANIMAL_TYPES.find((a) => a.id === article.animal)?.label || article.animal}
                   </span>
                 </div>
-                <div className="flex items-center gap-1 text-xs text-gray-600">
+                <div className="flex items-center gap-1 text-[#7a7a7a]" style={{ fontSize: 12 }}>
                   <Clock className="w-3 h-3" />
                   {article.readTime}
                 </div>
               </div>
-              <h2 className="font-bebas text-2xl tracking-wide text-white mb-2 group-hover:text-brand-blue transition-colors">
+              <h2
+                className="font-semibold text-[#1d1d1f] mb-2 group-hover:text-[#0066cc] transition-colors"
+                style={{ fontSize: 21, lineHeight: 1.19, letterSpacing: "0.231px" }}
+              >
                 {article.title}
               </h2>
-              <p className="text-gray-400 text-sm leading-relaxed mb-4">{article.description}</p>
-              <div className="flex items-center gap-1.5 text-brand-blue text-sm font-semibold">
+              <p className="text-[#7a7a7a] mb-4" style={{ fontSize: 17, lineHeight: 1.47, letterSpacing: "-0.374px" }}>
+                {article.description}
+              </p>
+              <div className="flex items-center gap-1.5 text-[#0066cc]" style={{ fontSize: 17, letterSpacing: "-0.374px" }}>
                 Read Article
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </div>

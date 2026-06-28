@@ -53,10 +53,11 @@ function Select({
     <select
       value={value}
       onChange={(e) => onChange(e.target.value)}
-      className="w-full bg-[#0F1F4A] border border-white/10 text-white text-sm px-3 py-2 focus:outline-none focus:border-brand-blue appearance-none cursor-pointer"
+      className="w-full bg-white border border-[#e0e0e0] text-[#1d1d1f] px-3 py-2 focus:outline-none focus:border-[#0066cc] appearance-none cursor-pointer"
+      style={{ fontSize: 14, letterSpacing: "-0.224px", borderRadius: 8 }}
     >
       {options.map((o) => (
-        <option key={o.value} value={o.value} className="bg-[#0F1F4A]">
+        <option key={o.value} value={o.value}>
           {o.label}
         </option>
       ))}
@@ -68,16 +69,18 @@ export default function FilterSidebar() {
   const { filters, updateFilter, resetFilters, comparedIds, setActiveModal } = useStore();
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-5">
       <AnimalSelector />
 
-      <div className="w-full h-px bg-white/10" />
+      <div className="w-full h-px bg-[#e0e0e0]" />
 
       {/* Price slider */}
       <div className="space-y-3">
         <div className="flex justify-between items-center">
-          <h3 className="font-bebas text-sm tracking-widest text-gray-400 uppercase">Max Monthly Price</h3>
-          <span className="text-brand-red font-bold text-sm">${filters.maxPrice}</span>
+          <h3 className="font-semibold text-[#1d1d1f]" style={{ fontSize: 12, letterSpacing: "-0.12px" }}>
+            Max Monthly Price
+          </h3>
+          <span className="font-semibold text-[#0066cc]" style={{ fontSize: 14 }}>${filters.maxPrice}</span>
         </div>
         <input
           type="range"
@@ -86,9 +89,9 @@ export default function FilterSidebar() {
           step={5}
           value={filters.maxPrice}
           onChange={(e) => updateFilter("maxPrice", Number(e.target.value))}
-          className="w-full accent-brand-red cursor-pointer"
+          className="w-full cursor-pointer accent-[#0066cc]"
         />
-        <div className="flex justify-between text-xs text-gray-600">
+        <div className="flex justify-between text-[#7a7a7a]" style={{ fontSize: 12 }}>
           <span>$10</span>
           <span>$200</span>
         </div>
@@ -96,69 +99,46 @@ export default function FilterSidebar() {
 
       {/* Filter selects */}
       <div className="space-y-3">
-        <div className="space-y-1.5">
-          <label className="font-bebas text-xs tracking-widest text-gray-400 uppercase">Reimbursement</label>
-          <Select
-            value={filters.minReimbursement}
-            onChange={(v) => updateFilter("minReimbursement", v)}
-            options={reimbursementOptions}
-          />
-        </div>
-        <div className="space-y-1.5">
-          <label className="font-bebas text-xs tracking-widest text-gray-400 uppercase">Annual Max Coverage</label>
-          <Select
-            value={filters.maxAnnual}
-            onChange={(v) => updateFilter("maxAnnual", v)}
-            options={annualMaxOptions}
-          />
-        </div>
-        <div className="space-y-1.5">
-          <label className="font-bebas text-xs tracking-widest text-gray-400 uppercase">Deductible</label>
-          <Select
-            value={filters.deductible}
-            onChange={(v) => updateFilter("deductible", v)}
-            options={deductibleOptions}
-          />
-        </div>
-        <div className="space-y-1.5">
-          <label className="font-bebas text-xs tracking-widest text-gray-400 uppercase">Waiting Period</label>
-          <Select
-            value={filters.waitingPeriod}
-            onChange={(v) => updateFilter("waitingPeriod", v)}
-            options={waitingOptions}
-          />
-        </div>
+        {[
+          { label: "Reimbursement", key: "minReimbursement" as const, options: reimbursementOptions },
+          { label: "Annual Max", key: "maxAnnual" as const, options: annualMaxOptions },
+          { label: "Deductible", key: "deductible" as const, options: deductibleOptions },
+          { label: "Waiting Period", key: "waitingPeriod" as const, options: waitingOptions },
+        ].map(({ label, key, options }) => (
+          <div key={key} className="space-y-1">
+            <label className="text-[#7a7a7a]" style={{ fontSize: 12, letterSpacing: "-0.12px" }}>{label}</label>
+            <Select value={filters[key]} onChange={(v) => updateFilter(key, v)} options={options} />
+          </div>
+        ))}
       </div>
 
       {/* Search */}
-      <div className="space-y-1.5">
-        <label className="font-bebas text-xs tracking-widest text-gray-400 uppercase">Search Provider</label>
+      <div className="space-y-1">
+        <label className="text-[#7a7a7a]" style={{ fontSize: 12, letterSpacing: "-0.12px" }}>Search Provider</label>
         <div className="relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#d2d2d7]" />
           <input
             type="text"
             placeholder="Provider name..."
             value={filters.searchTerm}
             onChange={(e) => updateFilter("searchTerm", e.target.value)}
-            className="w-full bg-[#0F1F4A] border border-white/10 text-white text-sm pl-9 pr-3 py-2 focus:outline-none focus:border-brand-blue placeholder-gray-600"
+            className="w-full bg-white border border-[#e0e0e0] text-[#1d1d1f] pl-9 pr-3 py-2 focus:outline-none focus:border-[#0066cc] placeholder-[#d2d2d7]"
+            style={{ fontSize: 14, letterSpacing: "-0.224px", borderRadius: 9999 }}
           />
         </div>
       </div>
 
       {/* Sort */}
-      <div className="space-y-1.5">
-        <label className="font-bebas text-xs tracking-widest text-gray-400 uppercase">Sort By</label>
-        <Select
-          value={filters.sortBy}
-          onChange={(v) => updateFilter("sortBy", v)}
-          options={sortOptions}
-        />
+      <div className="space-y-1">
+        <label className="text-[#7a7a7a]" style={{ fontSize: 12, letterSpacing: "-0.12px" }}>Sort By</label>
+        <Select value={filters.sortBy} onChange={(v) => updateFilter("sortBy", v)} options={sortOptions} />
       </div>
 
       {/* Reset */}
       <button
         onClick={resetFilters}
-        className="flex items-center gap-2 text-brand-red text-sm font-semibold hover:text-red-400 transition-colors"
+        className="flex items-center gap-2 text-[#0066cc] hover:text-[#0071e3] transition-colors"
+        style={{ fontSize: 14, letterSpacing: "-0.224px" }}
       >
         <RotateCcw className="w-3.5 h-3.5" />
         Reset Filters
@@ -166,13 +146,14 @@ export default function FilterSidebar() {
 
       {/* Compare bar */}
       {comparedIds.length >= 2 && (
-        <div className="border border-brand-blue/50 bg-brand-navy/40 p-4 space-y-3">
-          <div className="text-xs text-gray-400 font-semibold">
-            <span className="text-white font-bold">{comparedIds.length}</span> of 4 selected
+        <div className="border border-[#0066cc] bg-[#f0f6ff] p-4 space-y-3" style={{ borderRadius: 11 }}>
+          <div className="text-[#7a7a7a]" style={{ fontSize: 12, letterSpacing: "-0.12px" }}>
+            <span className="font-semibold text-[#1d1d1f]">{comparedIds.length}</span> of 4 selected
           </div>
           <button
             onClick={() => setActiveModal("compare")}
-            className="w-full bg-brand-navy border border-brand-blue text-white py-2.5 text-sm font-bold tracking-widest uppercase hover:bg-brand-blue transition-colors"
+            className="w-full bg-[#0066cc] text-white py-2.5 hover:bg-[#0071e3] transition-colors active:scale-95"
+            style={{ fontSize: 14, letterSpacing: "-0.224px", borderRadius: 9999 }}
           >
             Compare Selected
           </button>

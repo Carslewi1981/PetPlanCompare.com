@@ -31,7 +31,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${bebasNeue.variable} ${inter.variable} antialiased`}>
-      <body className="bg-[#0A0A0A] text-white font-[var(--font-inter)] min-h-screen flex flex-col antialiased">
+      <body className="bg-apple-canvas text-apple-ink font-[var(--font-inter)] min-h-screen flex flex-col antialiased">
         <StoreProvider>
           <Navbar />
           <main className="flex-1">{children}</main>

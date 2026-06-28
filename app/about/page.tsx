@@ -12,53 +12,55 @@ const values = [
   {
     icon: Eye,
     title: "Full Transparency",
-    description:
-      "We show you all costs, exclusions, and fine print — no hidden fees, no sponsored rankings.",
+    description: "We show you all costs, exclusions, and fine print — no hidden fees, no sponsored rankings.",
   },
   {
     icon: Shield,
     title: "Unbiased Comparisons",
-    description:
-      "Our ranking algorithm is based purely on coverage quality, pricing, and customer reviews.",
+    description: "Our ranking algorithm is based purely on coverage quality, pricing, and customer reviews.",
   },
   {
     icon: Users,
     title: "Built for Pet Owners",
-    description:
-      "Designed by pet owners who struggled to find clear, honest insurance information.",
+    description: "Designed by pet owners who struggled to find clear, honest insurance information.",
   },
   {
     icon: Zap,
     title: "Always Up to Date",
-    description:
-      "We update plan details regularly to ensure the information you see is current and accurate.",
+    description: "We update plan details regularly to ensure the information you see is current and accurate.",
   },
 ];
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-[#0A0A0A] pt-16">
-      {/* Hero */}
-      <section className="bg-[#1E3A8A] py-24 border-b border-white/10">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="font-bebas text-7xl tracking-widest text-white mb-6 leading-none">
-            WE EXIST SO YOUR PET GETS THE{" "}
-            <span className="text-brand-red">CARE IT DESERVES.</span>
+    <div className="bg-white" style={{ paddingTop: 44 }}>
+      {/* Hero — dark tile */}
+      <section className="bg-[#272729]" style={{ padding: "80px 0" }}>
+        <div className="max-w-[600px] mx-auto px-4 sm:px-6 text-center">
+          <h1
+            className="font-bebas text-white leading-none mb-6"
+            style={{ fontSize: "clamp(40px, 7vw, 64px)", letterSpacing: "0.02em" }}
+          >
+            We exist so your pet gets the{" "}
+            <span style={{ color: "#2997ff" }}>care it deserves.</span>
           </h1>
-          <p className="text-blue-200 text-lg max-w-2xl mx-auto leading-relaxed">
-            Petz Insurance Compare was founded by pet owners who were frustrated by opaque insurance comparisons,
+          <p className="text-[#cccccc]" style={{ fontSize: 21, lineHeight: 1.19, letterSpacing: "0.231px" }}>
+            Petz Insurance Compare was founded by pet owners frustrated by opaque insurance comparisons,
             confusing policies, and providers who didn&apos;t cover exotic animals.
           </p>
         </div>
       </section>
 
-      {/* Mission */}
-      <section className="py-20 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-[#0D1B3E] border border-white/10 p-8 md:p-12">
-          <h2 className="font-bebas text-4xl tracking-widest text-white mb-6">
-            OUR MISSION
+      {/* Mission — parchment tile */}
+      <section className="bg-[#f5f5f7]" style={{ padding: "80px 0" }}>
+        <div className="max-w-[740px] mx-auto px-4 sm:px-6">
+          <h2
+            className="font-semibold text-[#1d1d1f] mb-6"
+            style={{ fontSize: 40, lineHeight: 1.1 }}
+          >
+            Our Mission
           </h2>
-          <div className="space-y-4 text-gray-300 text-lg leading-relaxed">
+          <div className="space-y-4 text-[#1d1d1f]" style={{ fontSize: 17, lineHeight: 1.47, letterSpacing: "-0.374px" }}>
             <p>
               Pet insurance is one of the most important financial decisions a pet owner can make
               — yet the industry has historically been confusing, inconsistent, and exclusionary.
@@ -76,13 +78,16 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* How the tool works */}
-      <section className="py-16 bg-[#0D1B3E] border-y border-white/10">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="font-bebas text-4xl tracking-widest text-white mb-8 text-center">
-            HOW THE TOOL WORKS
+      {/* How the tool works — white tile */}
+      <section className="bg-white" style={{ padding: "80px 0" }}>
+        <div className="max-w-[740px] mx-auto px-4 sm:px-6">
+          <h2
+            className="font-semibold text-[#1d1d1f] mb-6"
+            style={{ fontSize: 40, lineHeight: 1.1 }}
+          >
+            How the Tool Works
           </h2>
-          <div className="space-y-4 text-gray-300 text-sm leading-relaxed">
+          <div className="space-y-4 text-[#1d1d1f]" style={{ fontSize: 17, lineHeight: 1.47, letterSpacing: "-0.374px" }}>
             <p>
               Our comparison database is maintained by a dedicated research team that reviews
               insurance policy documents, monitors pricing changes, and verifies coverage details
@@ -103,56 +108,90 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Values */}
-      <section className="py-20 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="font-bebas text-4xl tracking-widest text-white mb-12 text-center">
-          WHAT WE STAND FOR
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {values.map((v) => (
-            <div key={v.title} className="bg-[#0D1B3E] border border-white/10 p-6 flex gap-4">
-              <div className="w-10 h-10 bg-brand-navy flex items-center justify-center flex-shrink-0">
-                <v.icon className="w-5 h-5 text-brand-blue" />
-              </div>
-              <div>
-                <h3 className="font-bebas text-xl tracking-wide text-white mb-1">{v.title}</h3>
-                <p className="text-gray-400 text-sm leading-relaxed">{v.description}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Team */}
-      <section className="py-16 bg-[#0D1B3E] border-t border-white/10">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="font-bebas text-4xl tracking-widest text-white mb-12 text-center">
-            THE TEAM
+      {/* Values — parchment tile */}
+      <section className="bg-[#f5f5f7]" style={{ padding: "80px 0" }}>
+        <div className="max-w-[980px] mx-auto px-4 sm:px-6">
+          <h2
+            className="font-semibold text-[#1d1d1f] mb-12 text-center"
+            style={{ fontSize: 40, lineHeight: 1.1 }}
+          >
+            What We Stand For
           </h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {team.map((member) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {values.map((v) => (
               <div
-                key={member.name}
-                className="bg-black/30 border border-white/10 p-5 text-center"
+                key={v.title}
+                className="bg-white border border-[#e0e0e0] p-6 flex gap-4"
+                style={{ borderRadius: 18 }}
               >
-                <div className="text-4xl mb-3">{member.emoji}</div>
-                <div className="font-semibold text-white text-sm">{member.name}</div>
-                <div className="text-gray-500 text-xs mt-1">{member.role}</div>
+                <div
+                  className="w-10 h-10 flex items-center justify-center flex-shrink-0"
+                  style={{ background: "#f0f0f0", borderRadius: 11 }}
+                >
+                  <v.icon className="w-5 h-5 text-[#0066cc]" />
+                </div>
+                <div>
+                  <h3
+                    className="font-semibold text-[#1d1d1f] mb-1"
+                    style={{ fontSize: 21, lineHeight: 1.19, letterSpacing: "0.231px" }}
+                  >
+                    {v.title}
+                  </h3>
+                  <p className="text-[#7a7a7a]" style={{ fontSize: 17, lineHeight: 1.47, letterSpacing: "-0.374px" }}>
+                    {v.description}
+                  </p>
+                </div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-20 bg-[#1E3A8A]">
-        <div className="max-w-2xl mx-auto text-center px-4">
-          <h2 className="font-bebas text-4xl tracking-widest text-white mb-4">
-            START COMPARING TODAY
+      {/* Team — white tile */}
+      <section className="bg-white" style={{ padding: "80px 0" }}>
+        <div className="max-w-[740px] mx-auto px-4 sm:px-6">
+          <h2
+            className="font-semibold text-[#1d1d1f] mb-12 text-center"
+            style={{ fontSize: 40, lineHeight: 1.1 }}
+          >
+            The Team
+          </h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {team.map((member) => (
+              <div
+                key={member.name}
+                className="bg-[#f5f5f7] border border-[#e0e0e0] p-5 text-center"
+                style={{ borderRadius: 18 }}
+              >
+                <div className="text-4xl mb-3">{member.emoji}</div>
+                <div
+                  className="font-semibold text-[#1d1d1f]"
+                  style={{ fontSize: 14, letterSpacing: "-0.224px" }}
+                >
+                  {member.name}
+                </div>
+                <div className="text-[#7a7a7a] mt-1" style={{ fontSize: 12, letterSpacing: "-0.12px" }}>
+                  {member.role}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA — dark tile */}
+      <section className="bg-[#272729]" style={{ padding: "80px 0" }}>
+        <div className="max-w-[400px] mx-auto text-center px-4">
+          <h2
+            className="font-semibold text-white mb-6"
+            style={{ fontSize: 40, lineHeight: 1.1 }}
+          >
+            Start Comparing Today
           </h2>
           <Link
             href="/compare"
-            className="inline-flex items-center gap-2 bg-brand-red text-white px-10 py-4 text-sm font-bold uppercase tracking-widest hover:bg-red-700 transition-colors"
+            className="inline-flex items-center gap-2 bg-[#0066cc] text-white hover:bg-[#0071e3] transition-colors active:scale-95"
+            style={{ fontSize: 18, fontWeight: 300, borderRadius: 9999, padding: "14px 28px" }}
           >
             Compare Plans <ArrowRight className="w-4 h-4" />
           </Link>

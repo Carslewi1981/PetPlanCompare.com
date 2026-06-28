@@ -93,24 +93,24 @@ export default function ComparePage() {
   );
 
   return (
-    <div className="min-h-screen bg-[#0A0A0A] pt-16">
+    <div className="min-h-screen bg-white" style={{ paddingTop: 44 }}>
       {/* Page header */}
-      <div className="bg-[#1E3A8A] border-b border-white/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <h1 className="font-bebas text-4xl tracking-widest text-white">
-            COMPARE PET INSURANCE <span className="text-brand-red">PLANS</span>
+      <div className="bg-[#272729]">
+        <div className="max-w-[980px] mx-auto px-4 sm:px-6 py-10">
+          <h1 className="font-bebas text-white leading-none mb-1" style={{ fontSize: 40, letterSpacing: "0.02em" }}>
+            Compare Pet Insurance <span style={{ color: "#2997ff" }}>Plans</span>
           </h1>
-          <p className="text-blue-200 text-sm mt-1">
+          <p className="text-[#a1a1a6]" style={{ fontSize: 17, letterSpacing: "-0.374px" }}>
             Find the perfect plan for your pet — filter, compare, and connect with providers.
           </p>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-[980px] mx-auto px-4 sm:px-6 py-8">
         <div className="flex gap-8">
           {/* Sidebar — desktop */}
-          <aside className="hidden lg:block w-72 flex-shrink-0">
-            <div className="sticky top-20 bg-[#0D1B3E] border border-white/10 p-5">
+          <aside className="hidden lg:block w-64 flex-shrink-0">
+            <div className="sticky top-14 bg-[#f5f5f7] border border-[#e0e0e0] p-5" style={{ borderRadius: 18 }}>
               <FilterSidebar />
             </div>
           </aside>
@@ -119,7 +119,8 @@ export default function ComparePage() {
           <div className="lg:hidden fixed bottom-6 right-6 z-40">
             <button
               onClick={() => setSidebarOpen(true)}
-              className="flex items-center gap-2 bg-brand-navy border border-brand-blue text-white px-4 py-3 text-sm font-bold uppercase tracking-widest shadow-xl"
+              className="flex items-center gap-2 bg-[#0066cc] text-white px-5 py-3 shadow-xl hover:bg-[#0071e3] transition-colors active:scale-95"
+              style={{ borderRadius: 9999, fontSize: 14, letterSpacing: "-0.224px" }}
             >
               <SlidersHorizontal className="w-4 h-4" />
               Filters
@@ -134,7 +135,7 @@ export default function ComparePage() {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  className="fixed inset-0 bg-black/60 z-40 lg:hidden"
+                  className="fixed inset-0 bg-black/40 z-40 lg:hidden"
                   onClick={() => setSidebarOpen(false)}
                 />
                 <motion.div
@@ -142,12 +143,12 @@ export default function ComparePage() {
                   animate={{ x: 0 }}
                   exit={{ x: "-100%" }}
                   transition={{ type: "tween" }}
-                  className="fixed left-0 top-0 bottom-0 w-80 bg-[#0D1B3E] border-r border-white/10 z-50 overflow-y-auto p-5 lg:hidden"
+                  className="fixed left-0 top-0 bottom-0 w-80 bg-white border-r border-[#e0e0e0] z-50 overflow-y-auto p-5 lg:hidden"
                 >
                   <div className="flex justify-between items-center mb-6">
-                    <span className="font-bebas text-xl tracking-widest text-white">FILTERS</span>
+                    <span className="font-semibold text-[#1d1d1f]" style={{ fontSize: 21, letterSpacing: "0.231px" }}>Filters</span>
                     <button onClick={() => setSidebarOpen(false)}>
-                      <X className="w-5 h-5 text-gray-400" />
+                      <X className="w-5 h-5 text-[#7a7a7a]" />
                     </button>
                   </div>
                   <FilterSidebar />
@@ -161,10 +162,10 @@ export default function ComparePage() {
             {/* Results header */}
             <div className="flex items-center justify-between mb-6">
               <div>
-                <span className="font-bebas text-2xl tracking-wide text-white">
+                <span className="font-semibold text-[#1d1d1f]" style={{ fontSize: 21, letterSpacing: "0.231px" }}>
                   {filtered.length}{" "}
-                  <span className="text-gray-400">
-                    plan{filtered.length !== 1 ? "s" : ""} found for {animalLabel}
+                  <span className="text-[#7a7a7a] font-normal">
+                    plan{filtered.length !== 1 ? "s" : ""} for {animalLabel}
                   </span>
                 </span>
               </div>
@@ -172,10 +173,10 @@ export default function ComparePage() {
 
             {/* Cards grid */}
             {filtered.length === 0 ? (
-              <div className="text-center py-24 text-gray-500">
+              <div className="text-center py-24 text-[#7a7a7a]">
                 <div className="text-5xl mb-4">🔍</div>
-                <p className="font-bebas text-2xl tracking-wide text-gray-600 mb-2">NO PLANS MATCH YOUR FILTERS</p>
-                <p className="text-sm">Try adjusting your filters or resetting them.</p>
+                <p className="font-semibold text-[#1d1d1f] mb-2" style={{ fontSize: 21 }}>No plans match your filters</p>
+                <p style={{ fontSize: 17, letterSpacing: "-0.374px" }}>Try adjusting your filters or resetting them.</p>
               </div>
             ) : (
               <motion.div
