@@ -30,7 +30,7 @@ interface PetType {
 
 // Unsplash CDN — verified timestamp-format photo IDs
 const u = (id: string) =>
-  `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&crop=entropy&w=600&h=600&q=80`;
+  `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&crop=faces,entropy&w=600&h=600&q=80`;
 
 const PET_TYPES: PetType[] = [
   {
