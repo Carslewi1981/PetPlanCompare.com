@@ -123,13 +123,29 @@ export default function Footer() {
         </div>
 
         {/* Bottom row */}
-        <div className="py-8 flex flex-col md:flex-row gap-4 justify-between">
-          <p style={{ fontSize: 11, color: "rgba(255,255,255,0.18)", lineHeight: 1.7, maxWidth: 600 }}>
-            <strong style={{ color: "rgba(255,255,255,0.3)" }}>Disclaimer:</strong> {t.footer_disclaimer}
-          </p>
-          <p style={{ fontSize: 11, color: "rgba(255,255,255,0.18)", flexShrink: 0 }}>
-            © {new Date().getFullYear()} PetPlan Compare
-          </p>
+        <div className="py-8 flex flex-col gap-4">
+          {/* Affiliate disclosure — required by FTC */}
+          <div
+            className="px-4 py-3"
+            style={{ background: "rgba(201,169,110,0.05)", border: "1px solid rgba(201,169,110,0.12)" }}
+          >
+            <p style={{ fontSize: 11, color: "rgba(255,255,255,0.28)", lineHeight: 1.7 }}>
+              <strong style={{ color: "#c9a96e", letterSpacing: "0.06em", textTransform: "uppercase", fontSize: 9 }}>
+                Affiliate Disclosure&nbsp;&nbsp;
+              </strong>
+              Some links on this site are affiliate links. If you click through and purchase a policy, PetPlan Compare may receive a commission from the insurer at no extra cost to you. This does not influence our rankings, coverage summaries, or editorial content — all 12 providers are evaluated using the same criteria regardless of affiliate relationship.
+            </p>
+          </div>
+
+          {/* Legal disclaimer + copyright */}
+          <div className="flex flex-col md:flex-row gap-4 justify-between">
+            <p style={{ fontSize: 11, color: "rgba(255,255,255,0.18)", lineHeight: 1.7, maxWidth: 640 }}>
+              <strong style={{ color: "rgba(255,255,255,0.28)" }}>Disclaimer:</strong> {t.footer_disclaimer}
+            </p>
+            <p style={{ fontSize: 11, color: "rgba(255,255,255,0.18)", flexShrink: 0 }}>
+              © {new Date().getFullYear()} PetPlan Compare
+            </p>
+          </div>
         </div>
       </div>
     </footer>
