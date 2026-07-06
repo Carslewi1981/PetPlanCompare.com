@@ -7,7 +7,6 @@ import TrustBar from "@/components/TrustBar";
 import StatBar from "@/components/StatBar";
 import VetCostSection from "@/components/VetCostSection";
 import HowItWorks from "@/components/HowItWorks";
-import ReviewsSection from "@/components/ReviewsSection";
 import PetGallery from "@/components/PetGallery";
 import PlanCard from "@/components/PlanCard";
 import { insurers } from "@/lib/insurers";
@@ -418,9 +417,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
-      {/* ── REVIEWS ── */}
-      <ReviewsSection />
 
       {/* ── FINAL CTA ── */}
       <section

@@ -1,15 +1,14 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Lock, ShieldCheck, BarChart3, UserX, Star, FileText } from "lucide-react";
+import { LayoutList, Equal, Ban, UserX, Coins } from "lucide-react";
 
 const SIGNALS = [
-  { icon: <Lock className="w-3.5 h-3.5" />, title: "Never sell your data" },
-  { icon: <ShieldCheck className="w-3.5 h-3.5" />, title: "SSL encrypted" },
-  { icon: <BarChart3 className="w-3.5 h-3.5" />, title: "Independent & unbiased" },
+  { icon: <LayoutList className="w-3.5 h-3.5" />, title: "12 providers compared" },
+  { icon: <Equal className="w-3.5 h-3.5" />, title: "1 standard format — same criteria for all" },
+  { icon: <Ban className="w-3.5 h-3.5" />, title: "0 paid rankings" },
+  { icon: <Coins className="w-3.5 h-3.5" />, title: "Always free to use" },
   { icon: <UserX className="w-3.5 h-3.5" />, title: "No account required" },
-  { icon: <Star className="w-3.5 h-3.5" />, title: "50,000+ comparisons" },
-  { icon: <FileText className="w-3.5 h-3.5" />, title: "Always free to use" },
 ];
 
 export default function TrustBar() {
